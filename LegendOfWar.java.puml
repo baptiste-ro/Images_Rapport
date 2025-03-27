@@ -1,0 +1,389 @@
+@startuml
+interface EntityInterface {
+~ int getPv()
+~ void setPv(int)
+~ int getAtk()
+~ void setAtk(int)
+~ int getDef()
+~ void setDef(int)
+~ String getNom()
+~ void setNom(String)
+}
+
+class Joueur {
+- int level
+- int xp
+- int xpmax
+- List<Item> inventory
+- Classe categorie
+- ArrayList<Competence> listeCompetences
+- Case position
++ void addXp(int)
+- void lvlUp()
++ void resetBuff()
++ boolean addInventory(Item)
++ boolean removeInventory(Item)
++ int getLevel()
++ int getXp()
++ int getXpmax()
++ List<Item> getInventory()
++ int getPv()
++ int getAtk()
++ int getDef()
++ ArrayList<Competence> getCompetences()
++ String getNom()
++ Classe getCategorie()
++ void setCategorie(Classe)
++ void setnom(String)
++ void setXp(int)
++ void setPv(int)
++ void setAtk(int)
++ void setDef(int)
++ void setNom(String)
++ Case getPosition()
++ void setCompetences(Classe)
+}
+
+
+class Keyboard {
++ {static} void initKeyboard()
++ void nativeKeyReleased(NativeKeyEvent)
+}
+
+enum Classe {
++  ASSASSIN
++  BARBARE
++  MAGE
++ int pv
++ int atk
++ int def
++ int esquive
++ String nom
++ double critRate
++ double critDamage
++ int getPv()
++ int getAtk()
++ int getDef()
++ int getEsquive()
++ String getNom()
++ double getCritRate()
++ double getCritDamage()
++ void setPv(int)
++ void setAtk(int)
++ void setDef(int)
++ void setEsquive(int)
++ void setCritRate(double)
++ void setCritDamage(double)
+}
+
+
+class Case {
+- Monde monde
+- int numCase
+- ArrayList<Mob> mobs
++ String toString()
++ void setMobs()
++ Monde getMonde()
++ int getNumCase()
++ Mob mobEncountered()
+}
+
+
+class Map {
+- ArrayList<Case> map
++ Case getFirstCase()
++ Case getCase(int,Monde)
++ Case getLeft(Case)
++ Case getRight(Case)
++ int getSizeMap()
+}
+
+
+class Tools {
++ {static} String readFile(String)
++ {static} void writeFile(String,String)
++ {static} void printEntity(MobEnum)
++ {static} String readUser()
++ {static} void savePlayer(Joueur)
++ {static} Joueur loadPlayer()
++ {static} void printLeaderboard()
++ {static} void writeLeaderboard(String,int)
++ {static} String cleanText(String)
+}
+
+enum Item {
++  GeleeResistante
++  PeauSlime
++  BraceletOrc
++  AnneauDeForce
++  EssenceDeForce
++  CouronneDeSlime
++  EcailleMineur
++  PoisonDuSerpent
++  AnneauDeVitalite
++  ZaWarudo
++  FragmentDeTentacule
++  ForceDeKraken
++  GriffeDeDragon
++  EcailleDeDragon
++  CasqueDeSurvie
++  GantsImposteur
++  ChaussureDeShrek
++  MuscleDeShrek
++  GantDuDemon
++  CorneDuDemon
++  EpeeEnOs
++  BouclierDuSquelette
++  L
++  D
+~ int PV
+~ int ATK
+~ int DEF
+~ int ESQ
+~ int CRIT
+~ String name
++ int getPv()
++ void setPv(int)
++ int getAtk()
++ void setAtk(int)
++ int getDef()
++ void setDef(int)
++ String getNom()
++ void setNom(String)
++ int getEsq()
++ void setEsq(int)
++ int getCrit()
++ void setCrit(int)
+}
+
+
+enum GameState {
++  MENU
++  CLASSE
++  PLAYING
++  PAUSE
++  END
++  GAME_OVER
+}
+
+class CompetenceMob {
+- String name
+- int damage
+- int bonusAttack
+- int dropAttack
+- int bonusArmor
+- int dropArmor
+- int healing
+- double proba
++ String getName()
++ int getDamage()
++ int getBonusAttack()
++ int getBonusArmor()
++ int getDropAttack()
++ int getDropArmor()
++ int getHealing()
++ double getProba()
+}
+
+
+class Mob {
+~ MobEnum type
+~ CompetenceMob competence
++ String toString()
++ MobEnum getType()
++ void setType(MobEnum)
++ int getPv()
++ void setPv(int)
++ int getAtk()
++ void setAtk(int)
++ int getDef()
++ void setDef(int)
++ String getNom()
++ CompetenceMob getCompetenceMob()
++ boolean isBoss()
++ void setNom(String)
++ Item dropMob()
+}
+
+
+enum MobEnum {
++  DRAGON
++  AMOGUS
++  ORC
++  SERPENT
++  VAMPIRE
++  SLIME
++  SQUELETTE
++  DEMON
++  SHREK
++  KRAKEN
++  BIG_SLIME
++  REINE_DE_LA_FOURMILLIERE
+- double DROP
+- int DROPATK
+- int DROPDEF
+- Monde MONDE
+- int PV
+- boolean BOSS
+- int XP
+- CompetenceMob competence
+- Item LOOT1
+- Item LOOT2
++ int getPV()
++ int getDEF()
++ int getATK()
++ double getDROP()
++ int getDROPATK()
++ Item getLOOT1()
++ Item getLOOT2()
++ int getDROPDEF()
++ Monde getMonde()
++ boolean isBoss()
++ int getXP()
++ CompetenceMob getCompetence()
+}
+
+
+enum Drop {
++  SLIME
++  ORC
++  SLIMEGEANT
++  SERPENT
++  DIO
++  KRAKEN
++  DRAGON
++  AMOGUS
++  SHREK
++  DEMON
++  SQUELETTE
++  FOURMI
+- String item1
+- int stat1
+- int bonus1
+- String item2
+- int stat2
+- int bonus2
++ String getItem1()
++ int getStat1()
++ int getBonus1()
++ String getItem2()
++ int getStat2()
++ int getBonus2()
+}
+
+
+enum Monde {
++  MONDE_0
++  MONDE_1
++  MONDE_2
++  MONDE_3
+- int nbCases
++ int getNbCases()
+}
+
+
+class UI {
++ {static} boolean attack
++ {static} int capa
++ {static} List<String> logs
++ Classe categorie
++ {static} void update()
++ {static} void addLogs(String)
+- {static} void showLogs(List<String>)
+- {static} void showClasse()
+- {static} void showMob(List<String>)
+- {static} void showCapa(List<String>)
+- {static} void showPlayer(List<String>)
++ {static} String getXPBar(int,int)
+- {static} void setStats(List<String>)
++ {static} List<String> readFile(String)
+}
+
+
+enum Competence {
++  INTIMIDATION
++  SOINS_MINEURS
++  TOUT_OU_RIEN
++  ARMURE_MAGIQUE
++  SOINS_MAJEURS
++  PLUIE_SANGUINE
++  COUVERTURE_DE_SANG
++  VAMPIRISME
++  EXECUTION
+- int healing
+- int armor
+- int boost
++ int getHealing()
++ int getArmor()
++ int getBoost()
+}
+
+
+class Turn {
+- Joueur player
+- Mob mob
++ Joueur getJoueur()
++ Mob getMob()
++ int damageSimpleAttaque(Joueur,Mob)
++ int damageSimpleAttaque(Mob,Joueur)
++ int damageSimpleAttaque(EntityInterface,EntityInterface)
++ void applyEffect(Joueur,Competence)
++ void applyMobCompetence(Joueur,Mob,CompetenceMob)
++ void mobCapacityMessage(Mob,CompetenceMob)
+}
+
+
+abstract class Entity {
+~ int pv
+~ String nom
+}
+
+class LegendOfWar {
+~ {static} Map map
+~ {static} Case caseActuel
+~ {static} Game game
++ {static} void main(String[])
++ {static} Game getGame()
+}
+
+
+class Game {
+~ GameState state
+~ Map map
+~ Case caseActuel
+~ Joueur joueur
+~ Mob mob
+~ Turn turn
+~ boolean cheatCodeImmortel
+~ boolean cheatCodeOneShot
+~ boolean resume
++ void initGame()
++ void startGame()
++ void leaveGame()
++ GameState getState()
++ void setState(GameState)
++ Joueur getJoueur()
++ Mob getMob()
++ void newMob()
++ void attackPlayer()
++ void cheatAttackPlayer()
++ void cheatCapacityPlayer()
++ String propositions(ArrayList<Competence>)
++ int ask()
++ void capacityPlayer(Competence)
++ void attackMob()
+}
+
+
+
+
+EntityInterface <|.. Joueur
+java.io.Serializable <|.. Joueur
+Entity <|-- Joueur
+com.github.kwhat.jnativehook.keyboard.NativeKeyListener <|.. Keyboard
+java.io.Serializable <|.. Case
+java.io.Serializable <|.. CompetenceMob
+EntityInterface <|.. Mob
+java.io.Serializable <|.. Mob
+Entity <|-- Mob
+@enduml
